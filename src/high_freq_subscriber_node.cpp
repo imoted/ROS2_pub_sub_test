@@ -7,7 +7,8 @@ public:
   HighFreqSubscriber() : Node("high_freq_subscriber")
   {
     subscription_ = this->create_subscription<std_msgs::msg::String>(
-      "high_freq_topic", 10, std::bind(&HighFreqSubscriber::message_callback, this, std::placeholders::_1));
+      "high_freq_topic", 10,
+      std::bind(&HighFreqSubscriber::message_callback, this, std::placeholders::_1));
   }
 
 private:

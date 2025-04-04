@@ -8,7 +8,7 @@ public:
   {
     publisher_ = this->create_publisher<std_msgs::msg::String>("high_freq_topic", 10);
     timer_ = this->create_wall_timer(
-      std::chrono::microseconds(10), // 100kHz = 10μs
+      std::chrono::microseconds(10),  // 100kHz = 10μs
       std::bind(&HighFreqPublisher::publish_message, this));
   }
 

@@ -11,15 +11,14 @@ using namespace std::chrono_literals;
 class DummyLaserScanPublisher : public rclcpp::Node
 {
 public:
-  DummyLaserScanPublisher()
-  : Node("dummy_laser_scan_publisher")
+  DummyLaserScanPublisher() : Node("dummy_laser_scan_publisher")
   {
     // パブリッシャーの初期化
     publisher_ = this->create_publisher<sensor_msgs::msg::LaserScan>("scan", 10);
 
     // タイマーを設定して10Hzでコールバックを実行
-    timer_ = this->create_wall_timer(
-      100ms, std::bind(&DummyLaserScanPublisher::timer_callback, this));
+    timer_ =
+      this->create_wall_timer(100ms, std::bind(&DummyLaserScanPublisher::timer_callback, this));
 
     // LaserScanメッセージの固定パラメータを設定
     scan_msg_.header.frame_id = "laser_frame";
@@ -32,14 +31,16 @@ public:
     scan_msg_.range_max = 10.0;
 
     // ダミーデータのポイント数
-    int num_points = static_cast<int>((scan_msg_.angle_max - scan_msg_.angle_min) /
-                                      scan_msg_.angle_increment);
+    int num_points =
+      static_cast<int>((scan_msg_.angle_max - scan_msg_.angle_min) / scan_msg_.angle_increment);
 
     // ダミーの距離データを生成
     scan_msg_.ranges.resize(num_points);
     scan_msg_.intensities.resize(num_points);
 
-    RCLCPP_INFO(this->get_logger(), "ダミーLaserScanパブリッシャーを開始します。トピック: scan、周波数: 10Hz");
+    RCLCPP_INFO(
+      this->get_logger(),
+      "ダミーLaserScanパブリッシャーを開始します。トピック: scan、周波数: 10Hz");
   }
 
 private:
